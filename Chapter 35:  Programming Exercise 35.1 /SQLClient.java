@@ -110,7 +110,7 @@ borderPane.setCenter(borderPaneExecutionResult);
 Scene scene = new Scene(borderPane, 670, 400);
 primaryStage.setTitle("SQLClient"); // Set the stage title
 primaryStage.setScene(scene); // Place the scene in the stage
-primaryStage.show(); // Display the stage
+primaryStage.show(); // Display the stage.
 
 btConnectDB.setOnAction(e -> connectToDB());
 btExecuteSQL.setOnAction(e -> executeSQL());
