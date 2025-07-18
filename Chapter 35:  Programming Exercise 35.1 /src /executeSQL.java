@@ -1,3 +1,4 @@
+/** Execute SQL SELECT commands */
 private void executeSQL() {
     if (!dbManager.isConnected()) {
         taSQLResult.setText("Please connect to a database first");
