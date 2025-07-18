@@ -1,18 +1,25 @@
-public class connectToDB() {
-// Get database information from the user input
-String driver = cboDriver.getSelectionModel().getSelectedItem();
-String url = cboURL.getSelectionModel().getSelectedItem();
-String username = tfUsername.getText().trim();
-String password = pfPassword.getText().trim();
+public class processSQLSelect(String sql) {
+  try {
+        ResultSet resultSet = statement.executeQuery(sql);
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        StringBuilder result = new StringBuilder();
 
-// Connection to the database
-try {
-Class.forName(driver);
-connection = DriverManager.getConnection(
-url, username, password);
-lblConnectionStatus.setText("Connected to " + url);
-}
-catch (java.lang.Exception ex) {
-ex.printStackTrace();
-}
+        // Column headers
+        for (int i = 1; i <= columnCount; i++) {
+            result.append(metaData.getColumnName(i)).append("\t");
+        }
+        result.append("\n");
+
+        // Data rows
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+                result.append(resultSet.getString(i)).append("\t");
+            }
+            result.append("\n");
+        }
+        taSQLResult.setText(result.toString());
+    } catch (SQLException ex) {
+        taSQLResult.setText("SQL Error: " + ex.getMessage());
+    }
 }
