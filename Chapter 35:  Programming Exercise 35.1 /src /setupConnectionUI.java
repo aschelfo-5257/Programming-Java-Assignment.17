@@ -1,18 +1,4 @@
 public class setupConnectionUI {
-    @Override // Override the start method in the Application class
-      public void start(Stage primaryStage) {
-      cboURL.getItems().addAll(FXCollections.observableArrayList(
-      "jdbc:mysql://localhost/javabook",
-      "jdbc:mysql://liang.armstrong.edu/javabook",
-      "jdbc:odbc:exampleMDBDataSource",
-      "jdbc:oracle:thin:@liang.armstrong.edu:1521:orcl"));
-      cboURL.getSelectionModel().selectFirst();
-      
-      cboDriver.getItems().addAll(FXCollections.observableArrayList(
-      "com.mysql.jdbc.Driver", "sun.jdbc.odbc.dbcOdbcDriver",
-      "oracle.jdbc.driver.OracleDriver"));
-      cboDriver.getSelectionModel().selectFirst();
-      
       // Create UI for connecting to the database
       GridPane gridPane = new GridPane();
       gridPane.add(cboURL, 1, 0);
