@@ -57,14 +57,45 @@ private Label lblConnectionStatus = new Label("No connection now");
     
         // Create a scene and place it in the stage
         Scene scene = new Scene(borderPane, 670, 400);
-        primaryStage.setTitle("SQLClient"); // Set the stage title
-        primaryStage.setScene(scene); // Place the scene in the stage
-        primaryStage.show(); // Display the stage.
+        BorderPane borderPane = new BorderPane();
         
-        btConnectDB.setOnAction(e -> connectToDB());
-        btExecuteSQL.setOnAction(e -> executeSQL());
-        btClearSQLCommand.setOnAction(e -> tasqlCommand.setText(null));
-        btClearSQLResult.setOnAction(e -> taSQLResult.setText(null));
+        // Top area: DB Connection controls
+        GridPane connectionPane = new GridPane();
+        connectionPane.setHgap(5);
+        connectionPane.setVgap(5);
+        connectionPane.add(new Label("JDBC Driver"), 0, 0);
+        connectionPane.add(cboDriver, 1, 0);
+        connectionPane.add(new Label("Database URL"), 0, 1);
+        connectionPane.add(cboURL, 1, 1);
+        connectionPane.add(new Label("Username"), 0, 2);
+        connectionPane.add(tfUsername, 1, 2);
+        connectionPane.add(new Label("Password"), 0, 3);
+        connectionPane.add(pfPassword, 1, 3);
+        connectionPane.add(btConnectDB, 1, 4);
+        
+        VBox topBox = new VBox(10, connectionPane, lblConnectionStatus);
+        topBox.setAlignment(Pos.CENTER_LEFT);
+        borderPane.setTop(topBox);
+        
+        // Center area: SQL Command input
+        tasqlCommand.setWrapText(true);
+        ScrollPane commandScroll = new ScrollPane(tasqlCommand);
+        commandScroll.setFitToWidth(true);
+        commandScroll.setFitToHeight(true);
+        commandScroll.setPrefHeight(120);
+        borderPane.setCenter(commandScroll);
+        
+        // Bottom area: Buttons and result output
+        HBox buttonBox = new HBox(10, btExecuteSQL, btClearSQLCommand, btClearSQLResult);
+        buttonBox.setAlignment(Pos.CENTER);
+        
+        taSQLResult.setWrapText(true);
+        ScrollPane resultScroll = new ScrollPane(taSQLResult);
+        resultScroll.setFitToWidth(true);
+        resultScroll.setFitToHeight(true);
+        
+        VBox bottomBox = new VBox(10, buttonBox, resultScroll);
+        borderPane.setBottom(bottomBox);
         }
         
           /** Execute SQL commands */
