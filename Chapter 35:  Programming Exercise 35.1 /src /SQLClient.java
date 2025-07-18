@@ -97,25 +97,4 @@ private Label lblConnectionStatus = new Label("No connection now");
         VBox bottomBox = new VBox(10, buttonBox, resultScroll);
         borderPane.setBottom(bottomBox);
         }
-        
-          /** Execute SQL commands */
-          private void executeSQL() {
-          if (connection == null) {
-          taSQLResult.setText("Please connect to a database first");
-          return;
-          }
-          else {
-          String sqlCommands = tasqlCommand.getText().trim();
-          String[] commands = sqlCommands.replace('\n', ' ').split(";");
-          
-          for (String aCommand: commands) {
-          if (aCommand.trim().toUpperCase().startsWith("SELECT")) {
-          processSQLSelect(aCommand);
-          }
-          else {
-          processSQLNonSelect(aCommand);
-        }
-      }
-    }
-  }
 }
