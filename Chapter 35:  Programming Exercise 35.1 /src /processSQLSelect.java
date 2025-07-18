@@ -1,36 +1,26 @@
-/** Execute SQL SELECT commands */
-public class processSQLSelect(String sqlCommand) {
-  try {
-  // Get a new statement for the current connection
-  statement = connection.createStatement();
-  
-  // Execute a SELECT SQL command
-  ResultSet resultSet = statement.executeQuery(sqlCommand);
-  
-  // Find the number of columns in the result set
-  int columnCount = resultSet.getMetaData().getColumnCount();
-  String row = "";
-  
-  // Display column names
-  for (int i = 1; i <= columnCount; i++) {
-  row += resultSet.getMetaData().getColumnName(i) + "\t";
-  }
-  
-  taSQLResult.appendText(row + '\n');
-  
-  while (resultSet.next()) {
-  // Reset row to empty
-  row = "";
-  
-  for (int i = 1; i <= columnCount; i++) {
-  // A non-String column is converted to a string
-  row += resultSet.getString(i) + "\t";
-  }
-  
-  taSQLResult.appendText(row + '\n');
-  }
-  }
-  catch (SQLException ex) {
-  taSQLResult.setText(ex.toString());
-  }
+private void processSQLSelect(String sql) {
+    try {
+        ResultSet resultSet = statement.executeQuery(sql);
+        ResultSetMetaData metaData = resultSet.getMetaData();
+        int columnCount = metaData.getColumnCount();
+        StringBuilder result = new StringBuilder();
+
+        // Column headers
+        for (int i = 1; i <= columnCount; i++) {
+            result.append(metaData.getColumnName(i)).append("\t");
+        }
+        result.append("\n");
+
+        // Data rows
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnCount; i++) {
+                result.append(resultSet.getString(i)).append("\t");
+            }
+            result.append("\n");
+        }
+
+        taSQLResult.setText(result.toString());
+    } catch (SQLException ex) {
+        taSQLResult.setText("SQL Error: " + ex.getMessage());
+    }
 }
