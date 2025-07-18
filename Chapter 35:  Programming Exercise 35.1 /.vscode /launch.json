@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch JavaFX",
+      "request": "launch",
+      "mainClass": "NodeStyle", // or your actual class
+      "vmArgs": "--module-path /absolute/path/to/javafx-sdk-XX/lib --add-modules javafx.controls,javafx.fxml"
+    }
+  ]
+}
